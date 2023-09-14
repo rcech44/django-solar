@@ -16,6 +16,7 @@
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     </head>
     <body class="d-flex flex-column h-100">
+        <!-- Video background -->
         <!-- <div style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -1;box-shadow: inset 0 0 7vw 7vw rgba(0, 0, 0, 0.952);">
             <video src="{% static 'assets/video/mainpage_background.mp4' %}" autoplay loop muted style="object-fit: cover;" width="100%" height="100%" autoplay>
                 Your browser does not support the video tag.
@@ -23,8 +24,11 @@
         </div>
         <div style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -1;box-shadow: inset 0 0 7vw 7vw rgba(0, 0, 0, 0.3);">
         </div> -->
-        <div style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(144deg, rgba(137,62,177,1) 0%, rgba(184,150,70,1) 100%)">
-        </div>
+        
+        <!-- Color gradient background -->
+        <div style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(144deg, rgba(137,62,177,1) 0%, rgba(184,150,70,1) 100%)"></div>
+        
+        <!-- Main content -->
         <main class="flex-shrink-0">
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg mainpage-background-black-50">
@@ -36,6 +40,8 @@
                             <li class="nav-item"><a class="nav-link text-white" href="#">Odkaz 1</a></li>
                             <li class="nav-item"><a class="nav-link text-white" href="#">Odkaz 2</a></li>
                             <li class="nav-item"><a class="nav-link text-white" href="/manager">Manager</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="/api/compare">Test API</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="/api/infoMe">Test API 2</a></li>
                         </ul>
                     </div>
                 </div>
