@@ -9,5 +9,6 @@ urlpatterns = [
     path('getCompanyInfo/', views.company_info, name='api-company-info'),
     path('whoami/', views.whoami_view, name='api-whoami'),
     path('infoMe/', views.current_user_info_view, name='api-infome'),
+    path('updateMe/', views.edit_current_user_info_view, name='api-updateme'),
     path('compare/', views.compare_view, name='api-compare'),
 ]

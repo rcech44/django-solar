@@ -70,6 +70,41 @@ class App extends React.Component {
             });
     }
 
+    updateCompanyInfo = () => {
+        fetch("/api/updateMe/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": cookies.get("csrftoken"),
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({ 
+                first_name: this.logged_in_user_info['first_name'], 
+                last_name: this.logged_in_user_info['last_name'], 
+                email: this.logged_in_user_info['email'], 
+                company_name: this.logged_in_user_info['company_name'], 
+                company_image: this.logged_in_user_info['company_image'] }),
+        })
+            .then(this.isResponseOk)
+            .then((res) => {
+                console.log("OK");
+                this.setCompanyDetailsOnPage();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    updateAndSavePersonalData = (event) => {
+        event.preventDefault();
+        this.logged_in_user_info['first_name'] = document.getElementById("firstName").value;
+        this.logged_in_user_info['last_name'] = document.getElementById("lastName").value;
+        this.logged_in_user_info['email'] = document.getElementById("email").value;
+        this.logged_in_user_info['company_name'] = document.getElementById("company_name").value;
+        this.logged_in_user_info['company_image'] = document.getElementById("company_image").value;
+        this.updateCompanyInfo();
+    }
+
     setCompanyDetailsOnPage = () => {
 
         // Header
@@ -153,17 +188,16 @@ class App extends React.Component {
         console.log("Switching menu to: " + type);
         if (type == Menu.Personal)
         {
-            this.setState({ currentMenu: Menu.Personal });
+            this.setState({ currentMenu: Menu.Personal }, this.setCompanyDetailsOnPage);
         }
         else if (type == Menu.Offer)
         {
-            this.setState({ currentMenu: Menu.Offer });
+            this.setState({ currentMenu: Menu.Offer }, this.setCompanyDetailsOnPage);
         }
         else if (type == Menu.Home)
         {
-            this.setState({ currentMenu: Menu.Home });
+            this.setState({ currentMenu: Menu.Home }, this.setCompanyDetailsOnPage);
         }
-        this.setCompanyDetailsOnPage();
     }
 
     render() {
@@ -380,7 +414,7 @@ class App extends React.Component {
                                             </div>
                                         </div>
                                         <hr className="mb-4" />
-                                        <button className="btn btn-primary btn-lg btn-block" type="submit">
+                                        <button className="btn btn-primary btn-lg btn-block" onClick={this.updateAndSavePersonalData}>
                                             Uložit změny
                                         </button>
                                     </form>

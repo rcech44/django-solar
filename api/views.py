@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from .models import Offer, User
 from django.forms.models import model_to_dict
 
-
 @require_POST
 def login_view(request):
     data = json.loads(request.body)
@@ -67,6 +66,25 @@ def current_user_info_view(request):
     }
 
     return JsonResponse({'user': result})
+
+@ensure_csrf_cookie
+@require_POST
+def edit_current_user_info_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'isAuthenticated': False})
+    
+    try:
+        user = User.objects.get(id=request.user.id)
+        data = json.loads(request.body)
+        user.first_name = data.get('first_name')
+        user.last_name = data.get('last_name')
+        user.email = data.get('email')
+        user.company_name = data.get('company_name')
+        user.company_image = data.get('company_image')
+        user.save()
+    except:
+        return JsonResponse({'detail': 'Error while updating data'})
+    return JsonResponse({'detail': 'Successfully logged in.'}, status=200)
 
 def whoami_view(request):
     if not request.user.is_authenticated:
